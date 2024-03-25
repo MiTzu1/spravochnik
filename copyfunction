@@ -1,0 +1,75 @@
+def input_name():
+    return input("Ведите имя ")
+
+def input_surname():
+    return input("Ведите фамилию ")
+
+def input_pat():
+    return input("Ведите отчество ")
+
+def input_phone():
+    return input("Ведите номер ")
+
+def input_adress():
+    return input("Ведите адрес ")
+
+def create_contact():
+    name = input_name()
+    surname = input_surname()
+    pat = input_pat()
+    phone = input_phone()
+    adress = input_adress()
+    return f"{name} {surname} {pat} {phone} {adress}\n"
+
+def add_contact():
+    contact = create_contact()
+    with open("phonebook.txt","a") as fw:
+        fw.write(contact)
+def print_phonebook():
+    with open("phonebook.txt","r", encoding="UTF-8") as fw:
+        contacts_str = fw.read()
+        list_c=contacts_str.rstrip().split("\n")
+        for i, contact in enumerate(list_c,1):
+            print(i,contact)
+
+def copy_contact():
+    index = int(input("Введите индекс контакта для копирования "))
+    with open("phonebook.txt","r", encoding="UTF-8") as fw, open("phonebook1.txt","a", encoding="UTF-8") as fv:
+        contacts_str = fw.read()
+        list_c=contacts_str.rstrip().split("\n")
+        for i, contact in enumerate(list_c,1):
+            if i == index:
+                 fv.write(contact)
+
+def find_contact():
+    search = input("Введите данные ")
+    with open("phonebook.txt","r", encoding="UTF-8") as fw:
+        contacts_str = fw.read()
+        list_c=contacts_str.split("\n")
+    for contact in list_c:
+        if search in contact:
+            print(contact)
+        
+def ui():
+    with open("phonebook.txt","r"):
+        pass
+    with open("phonebook1.txt","a"):
+        pass
+    choise = "0"
+    while choise !="5":
+            print("1 - добавить контакт""\n""2 - вывести список контактов""\n""3 - найти контакт""\n""4 - закончить""\n""\n")
+            choise = input("Выберите вариант действия ")
+            if choise == "1":
+                add_contact()
+            elif choise == "2":
+                print_phonebook()
+            elif choise == "3":
+                find_contact()
+            elif choise == "4":
+                copy_contact()
+            elif choise == "5":
+                print("GL")
+            else:
+                print("wrong operation")
+        
+ui()
